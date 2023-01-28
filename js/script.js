@@ -1,3 +1,10 @@
+// function that displays the current day using moment
+function displayTime() {
+    currentDate = moment().format("dddd, Do MMMM");
+    //$(".currentDay").text(currentDate);
+  }
+  setInterval(displayTime, 1000);
+
 //check if local storage exists
 if (localStorage.getItem("weatherAppStored") === null) {
   // if null initialise local storage
@@ -51,7 +58,7 @@ location = "london"
     var conTemp = parseFloat(response.main.temp) - 273.15
     // apend today summary div
       $("#today").append(
-        `<div><b>${(response.name)}</b></div>
+        `<div><b>${(response.name)} - ${(currentDate)}</b></div>
         <div>Temp: ${(conTemp.toFixed(2))}°C</b></div>
         <div>Wind: ${(response.wind.speed)}</div>
         <div>Humidity: ${(response.main.humidity)}</div>`
