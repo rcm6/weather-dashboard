@@ -14,8 +14,6 @@ if (localStorage.getItem("weatherAppStored") === null) {
 
 //initialise variable to hold local storage array
 var retreivedCities = JSON.parse(window.localStorage.getItem("weatherAppStored"));
-console.log(retreivedCities)
-console.log(retreivedCities.length)
 
 //if array holds a location call render buttons function
 if (retreivedCities.length > 0) {
@@ -26,11 +24,8 @@ renderButtons();
 function renderButtons() {
   $("aside").append(`<h3>Search history</h3>`);
 
-
   for (i = 0; i < retreivedCities.length; i++) {
-    console.log(i);
-    var displayCities = retreivedCities[i] /*.City*/;
-    console.log(displayCities);
+    var displayCities = retreivedCities[i];
 
     //append cities buttons
     $("aside").append(
@@ -61,12 +56,9 @@ $("aside").on("click", "button", function () {
   APIKey = "c90265758d6d690ed02c2c3f3028ca77";
   queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
 
-  //if search location is not empty - set variable/clear input/update array (append/shift)/ update local storage and re-render buttons
-  // MOVE THIS TO A FUNCTION!!!!!!
+  //if search location is not empty 
   if (searchLocation != "") {
-    //locationS = searchLocation;
-    console.log("before function"+locationS);
-
+  
     //check if url incudes valid location
     UrlExists() 
 
@@ -74,18 +66,15 @@ $("aside").on("click", "button", function () {
     if ( UrlExists() ) {
 
       addButton()
-
     }
 
-    //if search location is empty
+    //if search location is empty check if undefined
   } else if (typeof locationS == "undefined") {
-    //run error function
+    //if undefined run error function
     errorTrap();
     return false;
   }
   //end if
-
-  console.log(locationS);
 
   //ajax calls
 
@@ -94,7 +83,6 @@ $("aside").on("click", "button", function () {
     url: queryURL,
     method: "GET",
   }).then(function (response) {
-    console.log(response);
     //convert temperature to celcius
     var conTemp = parseFloat(response.main.temp) - 273.15;
     //convert windspeed to mph
@@ -103,14 +91,11 @@ $("aside").on("click", "button", function () {
     $("#today").append(
       `<div class="bg-info p-3">
       <div><b>${response.name} - ${currentDate}</b></div>
-
       <div><img src="http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png" alt="${response.weather[0].description}" </img><div>
-
       <div>Temp: ${conTemp.toFixed(2)}°C</b></div>
       <div>Wind: ${conWind.toFixed(2)}mph</div>
       <div>Humidity: ${response.main.humidity}%</div>
       </div>`
-
     );
 
     var lat = response.coord.lat;
@@ -122,21 +107,18 @@ $("aside").on("click", "button", function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
-
       $("#forecast").append(
         `<div class="col-12">
       <h4>5 Day Forecast</h4>
     </div>`
       );
-
       //loop through 5 days increments of 8?
       for (let index = 5; index < 40; index = index + 8) {
         //convert temperature to celcius
         var conTemp = parseFloat(response.list[index].main.temp) - 273.15;
         //convert windspeed to mph
         var conWind = response.list[index].wind.speed * 2.236936
-
+        //append forecast div
         $("#forecast").append(
           `<div class="card bg-dark text-white" style="width:12rem; float:left; margin:0 0 3px 3px;">
           <div class="card-body">
@@ -167,7 +149,6 @@ function errorTrap(error) {
   );
 
   }else {
-  console.log("there was an error");
   $("#today").empty("");
   $("#forecast").empty("");
   $("#today").prepend(
@@ -184,7 +165,6 @@ function addButton(){
 
   //append search location to array/local storage
   retreivedCities.push(locationS);
-  console.log(retreivedCities.length);
 
   // shift array to remove first item if greater than 5
   if (retreivedCities.length > 5) {
@@ -207,18 +187,13 @@ function addButton(){
 //https://www.finleyghosh.com/blog/check-for-a-page-404-with-only-javascript//
     function UrlExists() {
       url = queryURL;
-//console.log(queryURL)
-//console.log('checking url')
         var http = new XMLHttpRequest();
         http.open('HEAD', url, false);
         http.send();
         if (http.status != 404){
-          console.log('true')
           return true;
         }else{
-          //console.log('false')
           $("input").val("");
-
         errorTrap(2);
             return false;
           }
