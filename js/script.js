@@ -163,7 +163,7 @@ function errorTrap(error) {
     $("#today").empty("");
   $("#forecast").empty("");
   $("#today").prepend(
-    `<div class="alert alert-warning"><b>that place doesn't exist sorry!</b></div>`
+    `<div class="mt-4 alert alert-warning"><b>You have not entered a valid location, please try again.</b></div>`
   );
 
   }else {
@@ -171,7 +171,7 @@ function errorTrap(error) {
   $("#today").empty("");
   $("#forecast").empty("");
   $("#today").prepend(
-    `<div class="alert alert-warning"><b>Please enter a city name in the search box</b></div>`
+    `<div class="mt-4 alert alert-warning"><b>Please enter a city name in the search box.</b></div>`
   );
 }
 }
