@@ -97,6 +97,8 @@ $("aside").on("click", "button", function () {
     console.log(response);
     //convert temperature to celcius
     var conTemp = parseFloat(response.main.temp) - 273.15;
+    //convert windspeed to mph
+    var conWind = response.wind.speed * 2.236936
     // apend today summary div
     $("#today").append(
       `<div class="bg-info p-3">
@@ -105,8 +107,8 @@ $("aside").on("click", "button", function () {
       <div><img src="http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png" alt="${response.weather[0].description}" </img><div>
 
       <div>Temp: ${conTemp.toFixed(2)}°C</b></div>
-      <div>Wind: ${response.wind.speed}</div>
-      <div>Humidity: ${response.main.humidity}</div>
+      <div>Wind: ${conWind.toFixed(2)}mph</div>
+      <div>Humidity: ${response.main.humidity}%</div>
       </div>`
 
     );
@@ -132,6 +134,8 @@ $("aside").on("click", "button", function () {
       for (let index = 5; index < 40; index = index + 8) {
         //convert temperature to celcius
         var conTemp = parseFloat(response.list[index].main.temp) - 273.15;
+        //convert windspeed to mph
+        var conWind = response.list[index].wind.speed * 2.236936
 
         $("#forecast").append(
           `<div class="card bg-dark text-white" style="width:12rem; float:left; margin:0 0 3px 3px;">
@@ -139,8 +143,8 @@ $("aside").on("click", "button", function () {
           <h5 class="card-title">${moment(response.list[index].dt_txt).format("Do MMMM")}</h5>
           <p class="card-text"><img src="http://openweathermap.org/img/wn/${response.list[index].weather[0].icon}@2x.png" alt="${response.list[index].weather[0].description}" </img></p>
           <p class="card-text">Temp: ${conTemp.toFixed(2)}°C</p>
-          <p class="card-text">Wind: ${response.list[index].wind.speed}</p>
-          <p class="card-text">Humidity: ${response.list[index].main.humidity}</p>
+          <p class="card-text">Wind: ${conWind.toFixed(2)}mph</p>
+          <p class="card-text">Humidity: ${response.list[index].main.humidity}%</p>
           </div>
           </div>`
         );
