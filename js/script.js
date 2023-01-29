@@ -8,7 +8,7 @@ function displayTime() {
 if (localStorage.getItem("weatherAppStored") === null) {
   // if null initialise local storage
 
-  var cityList = [ "london", "miami", "here", "there", "when",];
+  var cityList = [];
 
   //set local storage
   localStorage.setItem("weatherAppStored", JSON.stringify(cityList));
@@ -54,8 +54,13 @@ $("input").val("");
 
 //append search location to array/local storage
 retreivedCities.push(location);
-// shift array to remove frst item
-retreivedCities.shift();
+console.log(retreivedCities.length)
+// shift array to remove first item if greater than 5
+
+if ((retreivedCities.length) > 5) {
+  retreivedCities.shift();
+
+}
 
 //update local storage
   localStorage.setItem("weatherAppStored", JSON.stringify(retreivedCities))
