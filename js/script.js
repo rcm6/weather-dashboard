@@ -59,19 +59,13 @@ $("aside").on("click", "button", function () {
   }
 
   APIKey = "c90265758d6d690ed02c2c3f3028ca77";
-    queryURL =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      locationS +
-      "&appid=" +
-      APIKey;
+  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
 
   //if search location is not empty - set variable/clear input/update array (append/shift)/ update local storage and re-render buttons
   // MOVE THIS TO A FUNCTION!!!!!!
   if (searchLocation != "") {
     //locationS = searchLocation;
     console.log("before function"+locationS);
-
-    
 
     //check if url incudes valid location
     UrlExists() 
@@ -83,29 +77,6 @@ $("aside").on("click", "button", function () {
 
     }
 
-/*
-    //clear input value
-    $("input").val("");
-
-    //append search location to array/local storage
-    retreivedCities.push(location);
-    console.log(retreivedCities.length);
-
-    // shift array to remove first item if greater than 5
-    if (retreivedCities.length > 5) {
-      retreivedCities.shift();
-    }
-
-    //update local storage
-    localStorage.setItem("weatherAppStored", JSON.stringify(retreivedCities));
-
-    //clear aside
-    $("aside").find("p").remove();
-    $("aside").find("h3").remove();
-
-    //call render buttons function
-    renderButtons();
-*/
     //if search location is empty
   } else if (typeof locationS == "undefined") {
     //run error function
@@ -114,25 +85,10 @@ $("aside").on("click", "button", function () {
   }
   //end if
 
-  //clear previous displays
-  //$("#today").empty("");
-  //$("#forecast").empty("");
-
   console.log(locationS);
-
-
-  //console.log("fsdfdsf"+APIKey);
-  //console.log('dfdsfsdf'+queryURL);
 
   //ajax calls
 
- /* var APIKey = "c90265758d6d690ed02c2c3f3028ca77";
-  queryURL =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    locationS +
-    "&appid=" +
-    APIKey;
-*/
   // ajax call for summary
   $.ajax({
     url: queryURL,
@@ -143,10 +99,16 @@ $("aside").on("click", "button", function () {
     var conTemp = parseFloat(response.main.temp) - 273.15;
     // apend today summary div
     $("#today").append(
-      `<div><b>${response.name} - ${currentDate}</b></div>
+      `<div class="bg-info p-3">
+      <div><b>${response.name} - ${currentDate}</b></div>
+
+      <div><img src="http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png" alt="${response.weather[0].description}" </img><div>
+
       <div>Temp: ${conTemp.toFixed(2)}°C</b></div>
       <div>Wind: ${response.wind.speed}</div>
-      <div>Humidity: ${response.main.humidity}</div>`
+      <div>Humidity: ${response.main.humidity}</div>
+      </div>`
+
     );
 
     var lat = response.coord.lat;
@@ -172,9 +134,9 @@ $("aside").on("click", "button", function () {
         var conTemp = parseFloat(response.list[index].main.temp) - 273.15;
 
         $("#forecast").append(
-          `<div class="card bg-dark text-white" style="width:12rem; margin:0 0 3px 3px;">
+          `<div class="card bg-dark text-white" style="width:12rem; float:left; margin:0 0 3px 3px;">
           <div class="card-body">
-          <h5 class="card-title">${response.city.name}</h5>
+          <h5 class="card-title">${moment(response.list[index].dt_txt).format("Do MMMM")}</h5>
           <p class="card-text"><img src="http://openweathermap.org/img/wn/${response.list[index].weather[0].icon}@2x.png" alt="${response.list[index].weather[0].description}" </img></p>
           <p class="card-text">Temp: ${conTemp.toFixed(2)}°C</p>
           <p class="card-text">Wind: ${response.list[index].wind.speed}</p>
@@ -211,8 +173,7 @@ function errorTrap(error) {
 }
 // ErrorTrap Function end ---------------------------------------------------
 
-
-
+// addButton Function -------------------------------------------------------
 function addButton(){
   //clear input value
   $("input").val("");
@@ -236,9 +197,9 @@ function addButton(){
   //call render buttons function
   renderButtons();
 }
+// addButton Function end ---------------------------------------------------
 
-
-
+// UrlExists Function -------------------------------------------------------
 //https://www.finleyghosh.com/blog/check-for-a-page-404-with-only-javascript//
     function UrlExists() {
       url = queryURL;
@@ -258,10 +219,4 @@ function addButton(){
             return false;
           }
     }
-
-
-
-
-    /*
-              <p class="card-text">${moment(response.list[index].dt_txt).format("dddd, Do MMMM")}</p>
-*/
+// UrlExists Function end ---------------------------------------------------
