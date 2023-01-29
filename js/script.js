@@ -47,12 +47,12 @@ $("aside").on("click", "button", function () {
   $("#today").empty("");
   $("#forecast").empty("");
 
-  // create api key and url
-
+  // checks if search location has been input and is valid
   if (searchLocation != "") {
     locationS = searchLocation;
   }
 
+  // create api key and url
   APIKey = "c90265758d6d690ed02c2c3f3028ca77";
   queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
 
