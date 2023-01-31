@@ -43,28 +43,17 @@ $("aside").on("click", "button", function () {
   locationS = $(this).attr("data-name");
   searchLocation = $("input").val();
 
-  
-
   //clear previous displays
   $("#today").empty("");
   $("#forecast").empty("");
 
-  console.log('locations: '+locationS)
-  console.log('searchLocation: '+searchLocation)
-
-// if locations undefined and searchLocation empty
-// -- error trap please enter a city name 
+// if locations undefined and searchLocation empty - error trap please enter a city name 
 if (typeof locationS == "undefined" && searchLocation == "") {
 
   errorTrap();
     return false;
 
-    // if locationS undefined and search location not empty
-//search box location
-//check exists
-//add buttons
-
-
+// if locationS undefined and search location not empty - search box location - check exists - if exists add buttons
 } else if (typeof locationS == "undefined" && searchLocation != "") {
   locationS = searchLocation;
   //check if url incudes valid location
@@ -79,51 +68,14 @@ if (typeof locationS == "undefined" && searchLocation == "") {
 
     addButton()
     }
-    //if search location is empty check if undefined
-  
-} else if (locationS != ""){
- 
+
+//if locationS is not empty - button click location - ajax call
+} else if (locationS != ""){ 
  //create api key and url
  APIKey = "c90265758d6d690ed02c2c3f3028ca77";
  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
-
-
 }
-
-//if both contain
-//button click location
-//ajax call
-
-
-
-  // checks if search location has been input and is valid
- // if (searchLocation != "") { /////////////////////***************************************/  &&  locationS !=""
-   // locationS = searchLocation;
-  //}
-
-  // create api key and url
-  //APIKey = "c90265758d6d690ed02c2c3f3028ca77";
-  //queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
-/*
-  //if search location is not empty 
-  if (searchLocation != "" ) {/////////////////////***************************************  &&  locationS !=""
-  
-    //check if url incudes valid location
-    UrlExists() 
-
-    //if returns true add button
-    if ( UrlExists() ) {
-
-      addButton()
-    }
-
-    //if search location is empty check if undefined
-  } else if (typeof locationS == "undefined") {/////////////////////***************************************/ 
-    //if undefined run error function
-   // errorTrap();
-    //return false;
-  //}
-  //end if*/
+//end if
 
   //-------------------------------------------------------------//
   //ajax calls
@@ -241,11 +193,9 @@ function addButton(){
         http.open('HEAD', url, false);
         http.send();
         if (http.status != 404){
-          console.log('true')
           return true;
         }else{
           $("input").val("");
-          console.log('false')
         errorTrap(2);
             return false;
           }
