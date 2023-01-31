@@ -43,21 +43,73 @@ $("aside").on("click", "button", function () {
   locationS = $(this).attr("data-name");
   searchLocation = $("input").val();
 
+  
+
   //clear previous displays
   $("#today").empty("");
   $("#forecast").empty("");
 
-  // checks if search location has been input and is valid
-  if (searchLocation != "") {
-    locationS = searchLocation;
-  }
+  console.log('locations: '+locationS)
+  console.log('searchLocation: '+searchLocation)
 
-  // create api key and url
+// if locations undefined and searchLocation empty
+// -- error trap please enter a city name 
+if (typeof locationS == "undefined" && searchLocation == "") {
+
+  errorTrap();
+    return false;
+
+    // if locationS undefined and search location not empty
+//search box location
+//check exists
+//add buttons
+
+
+} else if (typeof locationS == "undefined" && searchLocation != "") {
+  locationS = searchLocation;
+  //check if url incudes valid location
+
   APIKey = "c90265758d6d690ed02c2c3f3028ca77";
   queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
 
+  UrlExists() 
+
+  //if returns true add button
+  if ( UrlExists() ) {
+
+    addButton()
+    }
+    //if search location is empty check if undefined
+  
+} else if (searchLocation != "" && locationS != ""){
+  console.log('here')
+  locationS = locationS;
+
+ //create api key and url
+ APIKey = "c90265758d6d690ed02c2c3f3028ca77";
+ queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
+  console.log('locations: '+locationS)
+  console.log('searchLocation: '+searchLocation)
+
+}
+
+//if both contain
+//button click location
+//ajax call
+
+
+
+  // checks if search location has been input and is valid
+ // if (searchLocation != "") { /////////////////////***************************************/  &&  locationS !=""
+   // locationS = searchLocation;
+  //}
+
+  // create api key and url
+  //APIKey = "c90265758d6d690ed02c2c3f3028ca77";
+  //queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
+/*
   //if search location is not empty 
-  if (searchLocation != "") {
+  if (searchLocation != "" ) {/////////////////////***************************************  &&  locationS !=""
   
     //check if url incudes valid location
     UrlExists() 
@@ -69,13 +121,14 @@ $("aside").on("click", "button", function () {
     }
 
     //if search location is empty check if undefined
-  } else if (typeof locationS == "undefined") {
+  } else if (typeof locationS == "undefined") {/////////////////////***************************************/ 
     //if undefined run error function
-    errorTrap();
-    return false;
-  }
-  //end if
+   // errorTrap();
+    //return false;
+  //}
+  //end if*/
 
+  //-------------------------------------------------------------//
   //ajax calls
 
   // ajax call for summary
@@ -191,9 +244,11 @@ function addButton(){
         http.open('HEAD', url, false);
         http.send();
         if (http.status != 404){
+          console.log('true')
           return true;
         }else{
           $("input").val("");
+          console.log('false')
         errorTrap(2);
             return false;
           }
