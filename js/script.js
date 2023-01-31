@@ -55,11 +55,9 @@ if (typeof locationS == "undefined" && searchLocation == "") {
 
 // if locationS undefined and search location not empty - search box location - check exists - if exists add buttons
 } else if (typeof locationS == "undefined" && searchLocation != "") {
-  locationS = searchLocation;
-  //check if url incudes valid location
 
   APIKey = "c90265758d6d690ed02c2c3f3028ca77";
-  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
+  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + searchLocation + "&appid=" + APIKey;
 
   UrlExists() 
 
@@ -77,7 +75,6 @@ if (typeof locationS == "undefined" && searchLocation == "") {
 }
 //end if
 
-  //-------------------------------------------------------------//
   //ajax calls
 
   // ajax call for summary
@@ -166,7 +163,7 @@ function addButton(){
   $("input").val("");
 
   //append search location to array/local storage
-  retreivedCities.push(locationS);
+  retreivedCities.push(searchLocation);
 
   // shift array to remove first item if greater than 5
   if (retreivedCities.length > 5) {
