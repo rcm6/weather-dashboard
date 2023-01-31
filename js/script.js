@@ -81,15 +81,12 @@ if (typeof locationS == "undefined" && searchLocation == "") {
     }
     //if search location is empty check if undefined
   
-} else if (searchLocation != "" && locationS != ""){
-  console.log('here')
-  locationS = locationS;
-
+} else if (locationS != ""){
+ 
  //create api key and url
  APIKey = "c90265758d6d690ed02c2c3f3028ca77";
  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
-  console.log('locations: '+locationS)
-  console.log('searchLocation: '+searchLocation)
+
 
 }
 
