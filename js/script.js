@@ -47,6 +47,10 @@ $("aside").on("click", "button", function () {
   $("#today").empty("");
   $("#forecast").empty("");
 
+  //APIKey
+  APIKey = "c90265758d6d690ed02c2c3f3028ca77";
+
+
 // if locations undefined and searchLocation empty - error trap please enter a city name 
 if (typeof locationS == "undefined" && searchLocation == "") {
 
@@ -56,7 +60,6 @@ if (typeof locationS == "undefined" && searchLocation == "") {
 // if locationS undefined and search location not empty - search box location - check exists - if exists add buttons
 } else if (typeof locationS == "undefined" && searchLocation != "") {
 
-  APIKey = "c90265758d6d690ed02c2c3f3028ca77";
   queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + searchLocation + "&appid=" + APIKey;
 
   UrlExists() 
@@ -69,8 +72,7 @@ if (typeof locationS == "undefined" && searchLocation == "") {
 
 //if locationS is not empty - button click location - ajax call
 } else if (locationS != ""){ 
- //create api key and url
- APIKey = "c90265758d6d690ed02c2c3f3028ca77";
+
  queryURL ="https://api.openweathermap.org/data/2.5/weather?q=" + locationS + "&appid=" + APIKey;
 }
 //end if
